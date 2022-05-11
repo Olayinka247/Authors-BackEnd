@@ -87,25 +87,4 @@ authorsRouter.delete("/:authorId", (req, res) => {
   }
 });
 
-authorsRouter.post("/checkEmail", (req, res) => {
-  try {
-    const authors = getAuthors();
-    const { email } = req.body;
-    const authorWIthEmail = authors.find((author) => author.email === email);
-    if (authorWIthEmail) {
-      res.status(200).json({
-        message: "Email In Use",
-        success: false,
-      });
-    } else {
-      res.status(200).json({
-        message: "Email Available",
-        success: true,
-      });
-    }
-  } catch (error) {
-    console.log("error");
-  }
-});
-
 export default authorsRouter;
