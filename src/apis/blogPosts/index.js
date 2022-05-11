@@ -4,6 +4,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import uniqid from "uniqid";
 import createError from "http-errors";
+import { checkblogPostsSchema, checkValidationResult } from "./validation.js";
 
 const blogPostsRouter = express.Router();
 
@@ -16,17 +17,22 @@ const getBlogPosts = () => JSON.parse(fs.readFileSync(blogPostsJSONPath));
 const writeBlogPosts = (blogPostsArray) =>
   fs.writeFileSync(blogPostsJSONPath, JSON.stringify(blogPostsArray));
 
-blogPostsRouter.post("/", (req, res, next) => {
-  try {
-    const newBlogPost = { ...req.body, id: uniqid(), createdAt: new Date() };
-    const blogPosts = getBlogPosts();
-    blogPosts.push(newBlogPost);
-    writeBlogPosts(blogPosts);
-    res.status(201).send({ id: newBlogPost.id });
-  } catch (error) {
-    next(error);
+blogPostsRouter.post(
+  "/",
+  checkblogPostsSchema,
+  checkValidationResult,
+  (req, res, next) => {
+    try {
+      const newBlogPost = { ...req.body, id: uniqid(), createdAt: new Date() };
+      const blogPosts = getBlogPosts();
+      blogPosts.push(newBlogPost);
+      writeBlogPosts(blogPosts);
+      res.status(201).send({ id: newBlogPost.id });
+    } catch (error) {
+      next(error);
+    }
   }
-});
+);
 blogPostsRouter.get("/", (req, res, next) => {
   try {
     const blogPosts = getBlogPosts();

@@ -30,3 +30,7 @@ server.listen(port, () => {
   console.table(listEndpoints(server));
   console.log(`server is listening on port ${port} !`);
 });
+
+server.on("error", (erorr) => {
+  console.log("ERror", error);
+});

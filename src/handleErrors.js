@@ -1,10 +1,6 @@
 export const badRequestHandler = (err, req, res, next) => {
   if (err.status === 400) {
-    res.status(400).send({
-      status: "error",
-      message: err.message,
-      errorList: err.errorList,
-    });
+    res.status(400).send(err);
   } else {
     next(err);
   }
@@ -27,6 +23,7 @@ export const notFoundHandler = (err, req, res, next) => {
 };
 
 export const genericHandleError = (err, req, res, next) => {
+  console.log(err);
   res.status(500).send({
     message: "Internal Server Error ! Will be fixed soon check back in a bit !",
   });

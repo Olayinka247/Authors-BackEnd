@@ -30,14 +30,7 @@ authorsRouter.post("/", (req, res) => {
 authorsRouter.get("/", (req, res) => {
   try {
     const authors = getAuthors();
-    if (req.query && req.query.category) {
-      const filteredAuthors = authors.filter(
-        (author) => author.category === req.query.category
-      );
-      res.send(filteredAuthors);
-    } else {
-      res.send(authors);
-    }
+    res.send(authors);
   } catch (error) {
     console.log("error");
   }
