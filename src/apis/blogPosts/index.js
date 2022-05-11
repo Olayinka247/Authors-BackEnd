@@ -3,6 +3,7 @@ import fs from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import uniqid from "uniqid";
+import createError from "http-errors";
 
 const blogPostsRouter = express.Router();
 
@@ -15,16 +16,18 @@ const getBlogPosts = () => JSON.parse(fs.readFileSync(blogPostsJSONPath));
 const writeBlogPosts = (blogPostsArray) =>
   fs.writeFileSync(blogPostsJSONPath, JSON.stringify(blogPostsArray));
 
-blogPostsRouter.post("/", (req, res) => {
+blogPostsRouter.post("/", (req, res, next) => {
   try {
     const newBlogPost = { ...req.body, id: uniqid(), createdAt: new Date() };
     const blogPosts = getBlogPosts();
     blogPosts.push(newBlogPost);
     writeBlogPosts(blogPosts);
     res.status(201).send({ id: newBlogPost.id });
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 });
-blogPostsRouter.get("/", (req, res) => {
+blogPostsRouter.get("/", (req, res, next) => {
   try {
     const blogPosts = getBlogPosts();
     if (req.query && req.query.category) {
@@ -35,9 +38,11 @@ blogPostsRouter.get("/", (req, res) => {
     } else {
       res.send(blogPosts);
     }
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 });
-blogPostsRouter.get("/:blogPostId", (req, res) => {
+blogPostsRouter.get("/:blogPostId", (req, res, next) => {
   try {
     const blogPosts = getBlogPosts();
     const foundBlogPost = blogPosts.find(
@@ -46,10 +51,14 @@ blogPostsRouter.get("/:blogPostId", (req, res) => {
     if (foundBlogPost) {
       res.send(foundBlogPost);
     } else {
+      next(createError(404, `Post with id ${req.params.blogPostId} not found`));
     }
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 });
-blogPostsRouter.put("/:blogPostId", (req, res) => {
+
+blogPostsRouter.put("/:blogPostId", (req, res, next) => {
   try {
     const blogPosts = getBlogPosts();
 
@@ -66,10 +75,13 @@ blogPostsRouter.put("/:blogPostId", (req, res) => {
       blogPosts[indexPost] = updatedBlogPost;
       writeBlogPosts(blogPosts);
     } else {
+      next(createError(404, `Post with id ${req.params.blogPostId} not found`));
     }
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 });
-blogPostsRouter.delete("/:blogPostId", (req, res) => {
+blogPostsRouter.delete("/:blogPostId", (req, res, next) => {
   try {
     const blogPosts = getBlogPosts();
     const remainingBlogPosts = blogPosts.filter(
@@ -77,7 +89,9 @@ blogPostsRouter.delete("/:blogPostId", (req, res) => {
     );
     writeBlogPosts(remainingBlogPosts);
     res.status(204).send();
-  } catch (error) {}
+  } catch (error) {
+    next(error);
+  }
 });
 
 export default blogPostsRouter;

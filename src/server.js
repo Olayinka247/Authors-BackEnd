@@ -3,6 +3,12 @@ import listEndpoints from "express-list-endpoints";
 import authorsRouter from "./apis/authors/index.js";
 import blogPostsRouter from "./apis/blogPosts/index.js";
 import cors from "cors";
+import {
+  genericHandleError,
+  badRequestHandler,
+  unauthorizedHandler,
+  notFoundHandler,
+} from "./handleErrors.js";
 
 const server = express();
 
@@ -13,6 +19,12 @@ server.use(express.json());
 
 server.use("/authors", authorsRouter);
 server.use("/blogPosts", blogPostsRouter);
+
+// *****************Error Handlers*****************
+server.use(badRequestHandler);
+server.use(unauthorizedHandler);
+server.use(notFoundHandler);
+server.use(genericHandleError);
 
 server.listen(port, () => {
   console.table(listEndpoints(server));
