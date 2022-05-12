@@ -17,6 +17,7 @@ const getBlogPosts = () => JSON.parse(fs.readFileSync(blogPostsJSONPath));
 const writeBlogPosts = (blogPostsArray) =>
   fs.writeFileSync(blogPostsJSONPath, JSON.stringify(blogPostsArray));
 
+//********* POST BLOG POST */
 blogPostsRouter.post(
   "/",
   checkblogPostsSchema,
@@ -33,12 +34,14 @@ blogPostsRouter.post(
     }
   }
 );
+
+//********* GET WITH SEARCH QUERY BY TITLE BLOG POST */
 blogPostsRouter.get("/", (req, res, next) => {
   try {
     const blogPosts = getBlogPosts();
-    if (req.query && req.query.category) {
-      const filteredBlogPosts = blogPosts.filter(
-        (blogPost) => blogPost.category === req.query.category
+    if (req.query && req.query.title) {
+      const filteredBlogPosts = blogPosts.filter((blogPost) =>
+        blogPost.title.toLowerCase().includes(req.query.title.toLowerCase())
       );
       res.send(filteredBlogPosts);
     } else {
@@ -48,6 +51,8 @@ blogPostsRouter.get("/", (req, res, next) => {
     next(error);
   }
 });
+
+//********* GET BLOG POST BY ID */
 blogPostsRouter.get("/:blogPostId", (req, res, next) => {
   try {
     const blogPosts = getBlogPosts();
@@ -63,6 +68,8 @@ blogPostsRouter.get("/:blogPostId", (req, res, next) => {
     next(error);
   }
 });
+
+//********* MODIFY BLOG POST  BY ID */
 
 blogPostsRouter.put("/:blogPostId", (req, res, next) => {
   try {
@@ -87,6 +94,8 @@ blogPostsRouter.put("/:blogPostId", (req, res, next) => {
     next(error);
   }
 });
+
+//********* DELETE BLOG POST BY ID */
 blogPostsRouter.delete("/:blogPostId", (req, res, next) => {
   try {
     const blogPosts = getBlogPosts();

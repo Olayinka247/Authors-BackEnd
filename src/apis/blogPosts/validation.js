@@ -25,7 +25,7 @@ const blogPostsSchema = {
   " readTime.value": {
     in: ["body"],
     isInt: {
-      errorMessage: "Value is a mandatory field and must be in unit",
+      errorMessage: "Value is a mandatory field and must be in number",
     },
   },
 
