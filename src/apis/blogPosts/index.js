@@ -1,33 +1,22 @@
 import express from "express";
-import fs from "fs";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
 import uniqid from "uniqid";
 import createError from "http-errors";
 import { checkblogPostsSchema, checkValidationResult } from "./validation.js";
+import { getBlogPosts, writeBlogPosts } from "../../lib/fs-tools.js";
 
 const blogPostsRouter = express.Router();
-
-const blogPostsJSONPath = join(
-  dirname(fileURLToPath(import.meta.url)),
-  "blogPosts.json"
-);
-
-const getBlogPosts = () => JSON.parse(fs.readFileSync(blogPostsJSONPath));
-const writeBlogPosts = (blogPostsArray) =>
-  fs.writeFileSync(blogPostsJSONPath, JSON.stringify(blogPostsArray));
 
 //********* POST BLOG POST */
 blogPostsRouter.post(
   "/",
   checkblogPostsSchema,
   checkValidationResult,
-  (req, res, next) => {
+  async (req, res, next) => {
     try {
       const newBlogPost = { ...req.body, id: uniqid(), createdAt: new Date() };
-      const blogPosts = getBlogPosts();
+      const blogPosts = await getBlogPosts();
       blogPosts.push(newBlogPost);
-      writeBlogPosts(blogPosts);
+      await writeBlogPosts(blogPosts);
       res.status(201).send({ id: newBlogPost.id });
     } catch (error) {
       next(error);
@@ -36,9 +25,9 @@ blogPostsRouter.post(
 );
 
 //********* GET WITH SEARCH QUERY BY TITLE BLOG POST */
-blogPostsRouter.get("/", (req, res, next) => {
+blogPostsRouter.get("/", async (req, res, next) => {
   try {
-    const blogPosts = getBlogPosts();
+    const blogPosts = await getBlogPosts();
     if (req.query && req.query.title) {
       const filteredBlogPosts = blogPosts.filter((blogPost) =>
         blogPost.title.toLowerCase().includes(req.query.title.toLowerCase())
@@ -53,9 +42,9 @@ blogPostsRouter.get("/", (req, res, next) => {
 });
 
 //********* GET BLOG POST BY ID */
-blogPostsRouter.get("/:blogPostId", (req, res, next) => {
+blogPostsRouter.get("/:blogPostId", async (req, res, next) => {
   try {
-    const blogPosts = getBlogPosts();
+    const blogPosts = await getBlogPosts();
     const foundBlogPost = blogPosts.find(
       (blogPost) => blogPost.id === req.params.blogPostId
     );
@@ -71,9 +60,9 @@ blogPostsRouter.get("/:blogPostId", (req, res, next) => {
 
 //********* MODIFY BLOG POST  BY ID */
 
-blogPostsRouter.put("/:blogPostId", (req, res, next) => {
+blogPostsRouter.put("/:blogPostId", async (req, res, next) => {
   try {
-    const blogPosts = getBlogPosts();
+    const blogPosts = await getBlogPosts();
 
     const indexPost = blogPosts.findIndex(
       (blogPost) => blogPost.id === req.params.blogPostId
@@ -86,7 +75,7 @@ blogPostsRouter.put("/:blogPostId", (req, res, next) => {
         updatedAt: new Date(),
       };
       blogPosts[indexPost] = updatedBlogPost;
-      writeBlogPosts(blogPosts);
+      await writeBlogPosts(blogPosts);
     } else {
       next(createError(404, `Post with id ${req.params.blogPostId} not found`));
     }
@@ -96,13 +85,13 @@ blogPostsRouter.put("/:blogPostId", (req, res, next) => {
 });
 
 //********* DELETE BLOG POST BY ID */
-blogPostsRouter.delete("/:blogPostId", (req, res, next) => {
+blogPostsRouter.delete("/:blogPostId", async (req, res, next) => {
   try {
-    const blogPosts = getBlogPosts();
+    const blogPosts = await getBlogPosts();
     const remainingBlogPosts = blogPosts.filter(
       (blogPost) => blogPost.id !== req.params.blogPostId
     );
-    writeBlogPosts(remainingBlogPosts);
+    await writeBlogPosts(remainingBlogPosts);
     res.status(204).send();
   } catch (error) {
     next(error);

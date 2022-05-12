@@ -1,0 +1,107 @@
+[
+  {
+    "category": "Disney",
+    "title": "Vickings",
+    "cover": "https://ui-avatars.com/api/?name=fantasy+Vikings",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgdg8cl31n2lnn",
+    "createdAt": "2022-05-11T13:50:11.747Z"
+  },
+  {
+    "category": "Romance",
+    "title": "Love Birds",
+    "cover": "https://ui-avatars.com/api/?name=fantasy+Vikings",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgdg8cl31n2ygk",
+    "createdAt": "2022-05-11T13:50:28.340Z"
+  },
+  {
+    "category": "Romance",
+    "title": "Love Birds",
+    "cover": "https://ui-avatars.com/api/?name=fantasy+Vikings",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgdg8cl31n2zlz",
+    "createdAt": "2022-05-11T13:50:29.831Z"
+  },
+  {
+    "category": "Romance",
+    "title": "Love Birds",
+    "cover": "https://ui-avatars.com/api/?name=fantasy+Vikings",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgdg8cl31n306l",
+    "createdAt": "2022-05-11T13:50:30.573Z"
+  },
+  {
+    "category": "War",
+    "title": "Love Birds",
+    "cover": "https://ui-avatars.com/api/?name=fantasy+Vikings",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgdg8cl31n30q2",
+    "createdAt": "2022-05-11T13:50:31.274Z",
+    "updatedAt": "2022-05-11T15:51:40.734Z"
+  },
+  {
+    "category": "Romance",
+    "title": "Love Birds",
+    "cover": "https://ui-avatars.com/api/?name=fantasy+Vikings",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgdg8cl31n313w",
+    "createdAt": "2022-05-11T13:50:31.772Z"
+  },
+  {
+    "category": "Romance",
+    "title": "Love Birds",
+    "cover": "https://ui-avatars.com/api/?name=fantasy+Vikings",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgdg8cl31n31fq",
+    "createdAt": "2022-05-11T13:50:32.198Z"
+  },
+  {
+    "category": "Romance",
+    "title": "Love Birds",
+    "cover": "https://ui-avatars.com/api/?name=fantasy+Vikings",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://ui-avatars.com/api/?name=Land+Lord"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgdg8cl31n31pv",
+    "createdAt": "2022-05-11T13:50:32.563Z"
+  }
+]

@@ -1,44 +1,34 @@
 import express from "express";
-import fs from "fs";
-import { fileURLToPath } from "url";
-import { dirname, join } from "path";
 import uniqid from "uniqid";
+
+import { getAuthors, writeAuthors } from "../../lib/fs-tools.js";
 
 const authorsRouter = express.Router();
 
-const authorsJSONPath = join(
-  dirname(fileURLToPath(import.meta.url)),
-  "authors.json"
-);
-
-const getAuthors = () => JSON.parse(fs.readFileSync(authorsJSONPath));
-const writeAuthors = (authorsArray) =>
-  fs.writeFileSync(authorsJSONPath, JSON.stringify(authorsArray));
-
-authorsRouter.post("/", (req, res) => {
+authorsRouter.post("/", async (req, res) => {
   try {
     const newAuthor = { ...req.body, id: uniqid(), createdAt: new Date() };
-    const authors = getAuthors();
+    const authors = await getAuthors();
     authors.push(newAuthor);
-    writeAuthors(authors);
+    await writeAuthors(authors);
     res.send(201).send({ id: newAuthor.id });
   } catch (error) {
     console.log("error");
   }
 });
 
-authorsRouter.get("/", (req, res) => {
+authorsRouter.get("/", async (req, res) => {
   try {
-    const authors = getAuthors();
+    const authors = await getAuthors();
     res.send(authors);
   } catch (error) {
     console.log("error");
   }
 });
 
-authorsRouter.get("/:authorId", (req, res) => {
+authorsRouter.get("/:authorId", async (req, res) => {
   try {
-    const authors = getAuthors();
+    const authors = await getAuthors();
     const foundAuthor = authors.find(
       (author) => author.id === req.params.authorId
     );
@@ -51,29 +41,29 @@ authorsRouter.get("/:authorId", (req, res) => {
   }
 });
 
-authorsRouter.put("/:authorId", (req, res) => {
+authorsRouter.put("/:authorId", async (req, res) => {
   try {
-    const authors = getAuthors();
+    const authors = await getAuthors();
     const index = authors.findIndex(
       (author) => author.id === req.params.authorId
     );
     const oldAuthor = authors[index];
     const updatedAuthor = { ...oldAuthor, ...req.body, updatedAt: new Date() };
     authors[index] = updatedAuthor;
-    writeAuthors(authors);
+    await writeAuthors(authors);
     res.send(updatedAuthor);
   } catch (error) {
     console.log("error");
   }
 });
 
-authorsRouter.delete("/:authorId", (req, res) => {
+authorsRouter.delete("/:authorId", async (req, res) => {
   try {
-    const authors = getAuthors();
+    const authors = await getAuthors();
     const remainingAuthors = authors.filter(
       (author) => author.id !== req.params.authorId
     );
-    writeAuthors(remainingAuthors);
+    await writeAuthors(remainingAuthors);
     res.status(204).send();
   } catch (error) {
     console.log("error");
