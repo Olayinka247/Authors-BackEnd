@@ -1,11 +1,32 @@
 import express from "express";
 import uniqid from "uniqid";
+import multer from "multer";
+import createError from "http-errors";
+import { v2 as cloudinary } from "cloudinary";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
 
 import { getAuthors, writeAuthors } from "../../lib/fs-tools.js";
 
 const authorsRouter = express.Router();
 
-authorsRouter.post("/", async (req, res) => {
+const cloudinaryUploader = multer({
+  storage: new CloudinaryStorage({
+    cloudinary,
+    params: {
+      folder: "strive/authors",
+    },
+  }),
+  fileFilter: (req, file, multerNext) => {
+    if (file.mimetype !== "image/jpeg") {
+      multerNext(createError(400, "Only jpeg allowed!"));
+    } else {
+      multerNext(null, true);
+    }
+  },
+  limits: { fileSize: 1 * 1024 * 1024 },
+}).single("avatar");
+
+authorsRouter.post("/", async (req, res, next) => {
   try {
     const newAuthor = { ...req.body, id: uniqid(), createdAt: new Date() };
     const authors = await getAuthors();
@@ -13,7 +34,7 @@ authorsRouter.post("/", async (req, res) => {
     await writeAuthors(authors);
     res.send(201).send({ id: newAuthor.id });
   } catch (error) {
-    console.log("error");
+    next("error");
   }
 });
 
@@ -69,5 +90,19 @@ authorsRouter.delete("/:authorId", async (req, res) => {
     console.log("error");
   }
 });
+
+//***********POST IMAGE AVATAR ************* */
+authorsRouter.post(
+  "/:authorId/avatar",
+  cloudinaryUploader,
+  async (req, res, next) => {
+    try {
+      console.log("FILE: ", req.file);
+      res.send();
+    } catch (error) {
+      next("error");
+    }
+  }
+);
 
 export default authorsRouter;
