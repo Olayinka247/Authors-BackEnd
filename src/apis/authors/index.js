@@ -23,7 +23,7 @@ const cloudinaryUploader = multer({
       multerNext(null, true);
     }
   },
-  limits: { fileSize: 1 * 1024 * 1024 },
+  limits: { fileSize: 1 * 1024 * 1024 }, // file size
 }).single("avatar");
 
 authorsRouter.post("/", async (req, res, next) => {
