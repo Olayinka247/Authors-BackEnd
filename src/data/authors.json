@@ -1,1 +1,60 @@
-[{"name":"Manana","surname":"oloco","email":"olo@sky.com","date of birth":" 12-12-1999","avatar":"https://ui-avatars.com/api/?name=Ma+Oloco","id":"3v7oqgd2e8l31iku5c","createdAt":"2022-05-11T11:44:24.479Z","updatedAt":"2022-05-11T11:46:04.397Z"},{"name":"Rue","surname":"Tan","email":"rue@aol.com","date of birth":" 10-1-1990","avatar":"https://ui-avatars.com/api/?name=Rue+Tan","id":"3v7oqgd980l31iq5b5","createdAt":"2022-05-11T11:48:32.224Z"},{"name":"Oloko","surname":"Iroko","email":"oloiro@gmail.com","date of birth":" 5-11-1995","avatar":"https://ui-avatars.com/api/?name=Oloko+Iroko","id":"3v7oqgd980l31ir2de","createdAt":"2022-05-11T11:49:15.074Z"},{"name":"Oloko","surname":"Iroko","email":"oloiro@gmail.com","date of birth":" 5-11-1995","avatar":"https://ui-avatars.com/api/?name=Oloko+Iroko","id":"3v7oqgd2wkl31jd6mx","createdAt":"2022-05-11T12:06:27.032Z"},{"name":"Oloko","surname":"Iroko","email":"oloiro@gmail.com","date of birth":" 5-11-1995","avatar":"https://ui-avatars.com/api/?name=Oloko+Iroko","id":"3v7oqgdcvcl31jyr9o","createdAt":"2022-05-11T12:23:13.547Z"},{"title":"Love ","cover":"https://ui-avatars.com/api/?name=fantasy+Vikings","readTime":{"value":5,"unit":"minute"},"author":{"name":"Land King","avatar":"https://ui-avatars.com/api/?name=Land+Lord"},"content":"BLOG","id":"3v7oqgd4m4l31r193r","createdAt":"2022-05-11T15:41:07.286Z"}]
+[
+  {
+    "name": "Manana",
+    "surname": "oloco",
+    "email": "olo@sky.com",
+    "date of birth": " 12-12-1999",
+    "avatar": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1652802477/strive/authors/klu4etydcmhcdjgsehpi.jpg",
+    "id": "3v7oqgd2e8l31iku5c",
+    "createdAt": "2022-05-11T11:44:24.479Z",
+    "updatedAt": "2022-05-11T11:46:04.397Z"
+  },
+  {
+    "name": "Rue",
+    "surname": "Tan",
+    "email": "rue@aol.com",
+    "date of birth": " 10-1-1990",
+    "avatar": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1652802477/strive/authors/klu4etydcmhcdjgsehpi.jpg",
+    "id": "3v7oqgd980l31iq5b5",
+    "createdAt": "2022-05-11T11:48:32.224Z"
+  },
+  {
+    "name": "Oloko",
+    "surname": "Iroko",
+    "email": "oloiro@gmail.com",
+    "date of birth": " 5-11-1995",
+    "avatar": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1652802477/strive/authors/klu4etydcmhcdjgsehpi.jpg",
+    "id": "3v7oqgd980l31ir2de",
+    "createdAt": "2022-05-11T11:49:15.074Z"
+  },
+  {
+    "name": "Oloko",
+    "surname": "Iroko",
+    "email": "oloiro@gmail.com",
+    "date of birth": " 5-11-1995",
+    "avatar": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1652802477/strive/authors/klu4etydcmhcdjgsehpi.jpg",
+    "id": "3v7oqgd2wkl31jd6mx",
+    "createdAt": "2022-05-11T12:06:27.032Z"
+  },
+  {
+    "name": "Oloko",
+    "surname": "Iroko",
+    "email": "oloiro@gmail.com",
+    "date of birth": " 5-11-1995",
+    "avatar": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1652802477/strive/authors/klu4etydcmhcdjgsehpi.jpg",
+    "id": "3v7oqgdcvcl31jyr9o",
+    "createdAt": "2022-05-11T12:23:13.547Z"
+  },
+  {
+    "title": "Love ",
+    "cover": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1652802477/strive/authors/klu4etydcmhcdjgsehpi.jpg",
+    "readTime": { "value": 5, "unit": "minute" },
+    "author": {
+      "name": "Land King",
+      "avatar": "https://res.cloudinary.com/dgk6nwr6q/image/upload/v1652802477/strive/authors/klu4etydcmhcdjgsehpi.jpg"
+    },
+    "content": "BLOG",
+    "id": "3v7oqgd4m4l31r193r",
+    "createdAt": "2022-05-11T15:41:07.286Z"
+  }
+]
