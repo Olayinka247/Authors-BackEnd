@@ -1,21 +1,38 @@
 import PdfPrinter from "pdfmake";
+import fs from "fs";
+import axios from "axios";
+import imageToBase64 from "image-to-base64";
 
-export const getAuthorsPDFReadableStream = (author) => {
-  const fonts = {
-    Roboto: {
-      normal: "Helvetica",
-      bold: "Helvetica-Bold",
-    },
-  };
+const fonts = {
+  Roboto: {
+    normal: "Helvetica",
+    bold: "Helvetica-Bold",
+  },
+};
 
-  const printer = new PdfPrinter(fonts);
+const printer = new PdfPrinter(fonts);
 
+export const getPDFReadableStream = async (author) => {
+  let imagePath = {};
+  if (author.avatar) {
+    const response = await axios.get(author.avatar, {
+      responseType: "arraybuffer",
+    });
+    const authorAvatarURLPaths = author.avatar.split("/");
+    const fileName = authorAvatarURLPaths[authorAvatarURLPaths.length - 1];
+    const [id, extension] = fileName.split(".");
+    const base64 = response.data.toString("base64");
+    const base64Image = `data:image/${extension};base64,${base64}`;
+    imagePath = { image: base64Image, width: 500, margin: [0, 0, 0, 40] };
+  }
   const authorsDefinition = {
     content: [
       {
         text: author.name,
         style: "header",
       },
+      imagePath,
+
       "Hello World",
       {
         text: author.surname,
