@@ -4,16 +4,24 @@ import authorsRouter from "./apis/authors/index.js";
 import blogPostsRouter from "./apis/blogPosts/index.js";
 import authorDataRouter from "./apis/authors/authorData.js";
 import cors from "cors";
+import { join } from "path";
 import {
   genericHandleError,
   badRequestHandler,
   unauthorizedHandler,
   notFoundHandler,
 } from "./handleErrors.js";
+import swaggerUIExpress from "swagger-ui-express";
+import yaml from "yamljs";
 
 const server = express();
 
 const port = process.env.PORT || 3001;
+
+const yamlDocument = yaml.load(
+  join(process.cwd(), "./src/doc/apiDefinition.yml")
+);
+console.log("I AM YML ", yamlDocument);
 
 const whitelist = [process.env.FE_DEV_URL, process.env.FE_PROD_URL];
 
@@ -38,6 +46,11 @@ server.use(express.json());
 server.use("/authors", authorsRouter);
 server.use("/blogPosts", blogPostsRouter);
 server.use("/authorData", authorDataRouter);
+server.use(
+  "/doc",
+  swaggerUIExpress.serve,
+  swaggerUIExpress.setup(yamlDocument)
+);
 
 // *****************Error Handlers*****************
 server.use(badRequestHandler);
