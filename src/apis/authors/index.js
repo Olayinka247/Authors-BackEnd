@@ -9,6 +9,8 @@ import { pipeline } from "stream";
 import { getAuthors, writeAuthors } from "../../lib/fs-tools.js";
 import { getAuthorsPDFReadableStream } from "../../lib/pdf-tools.js";
 
+import { sendAuthorsEmail } from "../../lib/email-tools.js";
+
 const authorsRouter = express.Router();
 
 const cloudinaryUploader = multer({
@@ -126,6 +128,26 @@ authorsRouter.get("/:authorId/pdf", async (req, res, next) => {
     });
   } catch (error) {
     next(error);
+  }
+});
+
+authorsRouter.post("/register", async (req, res) => {
+  try {
+    // 1. receive email from req.body
+    const { email } = req.body;
+
+    // 2. save new user in db
+
+    // 3. send email to new user
+
+    await sendAuthorsEmail(email);
+
+    // 4. send a proper response
+
+    res.send({ message: "Author registered, email sent!" });
+  } catch (error) {
+    console.log();
+    ("error");
   }
 });
 

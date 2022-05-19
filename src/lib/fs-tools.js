@@ -16,4 +16,4 @@ export const getBlogPosts = () => readJSON(blogPostsJSONPath);
 export const writeBlogPosts = (blogPostsArray) =>
   writeJSON(blogPostsJSONPath, blogPostsArray);
 
-// export const getAuthorsReadableStream = () => createReadStream(authorsJSONPath);
+export const getAuthorsReadableStream = () => createReadStream(authorsJSONPath);
