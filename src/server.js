@@ -2,6 +2,7 @@ import express from "express";
 import listEndpoints from "express-list-endpoints";
 import authorsRouter from "./apis/authors/index.js";
 import blogPostsRouter from "./apis/blogPosts/index.js";
+import authorDataRouter from "./apis/authors/authorData.js";
 import cors from "cors";
 import {
   genericHandleError,
@@ -18,8 +19,6 @@ const whitelist = [process.env.FE_DEV_URL, process.env.FE_PROD_URL];
 
 const corsOptions = {
   origin: (origin, next) => {
-    console.log("CURRENT ORIGIN: ", origin);
-
     if (!origin || whitelist.indexOf(origin) !== -1) {
       next(null, true);
     } else {
@@ -38,6 +37,7 @@ server.use(express.json());
 
 server.use("/authors", authorsRouter);
 server.use("/blogPosts", blogPostsRouter);
+server.use("/authorData", authorDataRouter);
 
 // *****************Error Handlers*****************
 server.use(badRequestHandler);

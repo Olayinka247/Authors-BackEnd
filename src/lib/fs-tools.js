@@ -2,7 +2,8 @@ import fs from "fs-extra";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
-const { readJSON, writeJSON } = fs;
+const { readJSON, writeJSON, createReadStream } = fs;
+export const getAuthorsReadableStream = () => createReadStream(authorsJSONPath);
 
 const dataFolderPath = join(dirname(fileURLToPath(import.meta.url)), "../data");
 console.log(dataFolderPath);
@@ -15,5 +16,3 @@ export const writeAuthors = (authorsArray) =>
 export const getBlogPosts = () => readJSON(blogPostsJSONPath);
 export const writeBlogPosts = (blogPostsArray) =>
   writeJSON(blogPostsJSONPath, blogPostsArray);
-
-export const getAuthorsReadableStream = () => createReadStream(authorsJSONPath);
